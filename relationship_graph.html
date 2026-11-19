@@ -7,9 +7,25 @@
 </script>
 <script>(function(){var d=document.documentElement,s=null;try{s=localStorage.getItem('prg-theme')}catch(e){}d.dataset.theme=s||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');window.themeLabel=function(){var b=document.getElementById('theme'),k=d.dataset.theme=='dark';b.textContent=k?'☀ Light':'☾ Dark';b.setAttribute('aria-label','Switch to '+(k?'light':'dark')+' mode')};window.toggleTheme=function(){try{localStorage.setItem('prg-theme',d.dataset.theme=='dark'?'light':'dark')}catch(e){}location.reload()}})()</script>
 <style>
-:root{--ap-primary:#1D8837;--ap-black-green:#33631D;--ap-blue:#0058AD;--ap-red:#ED0B1C;--ap-dark-grey:#454545;--ap-gray:#585858;--ap-mid-grey:#6E6E6E;--ap-light-grey:#F5F5F5;--ap-white:#FFFFFF}
-:root{--bg:var(--ap-light-grey);--card:var(--ap-white);--ink:var(--ap-dark-grey);--mute:var(--ap-mid-grey);--line:#e2e8f0;--acc:var(--ap-primary);--ip:#1F8195;--ec:var(--ap-blue);--op:#5F1D85;--en:var(--ap-mid-grey);--bad:var(--ap-red);--ok:var(--ap-black-green);--inf:#AD6300}
-:root[data-theme=dark]{--bg:#0b1220;--card:#131c2e;--ink:#e5e7eb;--mute:#94a3b8;--line:#243049;--acc:#f97316;--ip:#2dd4bf;--ec:#60a5fa;--op:#a78bfa;--en:#94a3b8;--bad:#f87171;--ok:#4ade80}
+:root{
+/* 1. Base anchors: exact colours from alixpartners.com's CSS */
+--base-green:#1D8837;--base-red:#ED0B1C;--base-blue:#0058AD;--base-amber:#AD6300;--base-teal:#1F8195;--base-purple:#5F1D85;--base-grey:#6E6E6E;
+/* 2. Perceptual scales: 100 tint | 300 soft, dark-mode primary | 500 base | 700 shade, dark-mode soft | 900 deep */
+--green-100:color-mix(in oklch,var(--base-green) 14%,white);--green-300:color-mix(in oklch,var(--base-green) 58%,white);--green-500:var(--base-green);--green-700:color-mix(in oklch,var(--base-green) 72%,black);--green-900:color-mix(in oklch,var(--base-green) 35%,black);
+--red-100:color-mix(in oklch,var(--base-red) 14%,white);--red-300:color-mix(in oklch,var(--base-red) 58%,white);--red-500:var(--base-red);--red-700:color-mix(in oklch,var(--base-red) 72%,black);--red-900:color-mix(in oklch,var(--base-red) 35%,black);
+--blue-100:color-mix(in oklch,var(--base-blue) 14%,white);--blue-300:color-mix(in oklch,var(--base-blue) 58%,white);--blue-500:var(--base-blue);--blue-700:color-mix(in oklch,var(--base-blue) 72%,black);--blue-900:color-mix(in oklch,var(--base-blue) 35%,black);
+--amber-100:color-mix(in oklch,var(--base-amber) 14%,white);--amber-300:color-mix(in oklch,var(--base-amber) 62%,white);--amber-500:var(--base-amber);--amber-700:color-mix(in oklch,var(--base-amber) 72%,black);--amber-900:color-mix(in oklch,var(--base-amber) 35%,black);
+--teal-100:color-mix(in oklch,var(--base-teal) 14%,white);--teal-300:color-mix(in oklch,var(--base-teal) 58%,white);--teal-500:var(--base-teal);--teal-700:color-mix(in oklch,var(--base-teal) 72%,black);--teal-900:color-mix(in oklch,var(--base-teal) 35%,black);
+--purple-100:color-mix(in oklch,var(--base-purple) 14%,white);--purple-300:color-mix(in oklch,var(--base-purple) 58%,white);--purple-500:var(--base-purple);--purple-700:color-mix(in oklch,var(--base-purple) 72%,black);--purple-900:color-mix(in oklch,var(--base-purple) 35%,black);
+--grey-50:color-mix(in oklch,var(--base-grey) 6%,white);--grey-100:color-mix(in oklch,var(--base-grey) 14%,white);--grey-300:color-mix(in oklch,var(--base-grey) 38%,white);--grey-500:var(--base-grey);--grey-700:color-mix(in oklch,var(--base-grey) 55%,black);--grey-800:color-mix(in oklch,var(--base-grey) 30%,black);--grey-900:color-mix(in oklch,var(--base-grey) 16%,black);
+/* 3. Light mode roles */
+--bg:#ffffff;--card:var(--grey-50);--ink:var(--grey-900);--mute:var(--grey-500);--line:var(--grey-300);
+--acc:var(--green-500);--ok:var(--green-500);--inf:var(--blue-500);--bad:var(--red-500);--bad-soft:var(--red-300);
+--ip:var(--amber-500);--ec:var(--teal-500);--op:var(--purple-500);--en:var(--blue-500);--dim-node:.07;--dim-edge:.04}
+/* 4. Dark mode roles (the page toggles data-theme, so no @media) */
+:root[data-theme=dark]{--bg:var(--grey-900);--card:var(--grey-800);--ink:var(--grey-100);--mute:var(--grey-300);--line:var(--grey-700);
+--acc:var(--green-300);--ok:var(--green-300);--inf:var(--blue-300);--bad:var(--red-300);--bad-soft:var(--red-700);
+--ip:var(--amber-300);--ec:var(--teal-300);--op:var(--purple-300);--en:var(--blue-300);--dim-node:.28;--dim-edge:.2}
 :root{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 header{position:relative}#theme{position:absolute;right:24px;top:20px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:8px;cursor:pointer;font:inherit;font-size:12px}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Roboto,Arial,Helvetica,sans-serif}
@@ -36,7 +52,7 @@ svg text{fill:var(--ink)}#tip{position:fixed;pointer-events:none;background:var(
 .chip{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:4px 11px;border-radius:99px;cursor:pointer;font:inherit;font-size:12px}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .ncard{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--mute);border-radius:10px;padding:14px 16px;margin-bottom:10px}
-.ncard.high{border-left-color:var(--bad)}.ncard.medium{border-left-color:var(--acc)}
+.ncard.high{border-left-color:var(--bad-soft)}.ncard.medium{border-left-color:var(--acc)}
 .ncard h3{margin:0 0 2px;font-size:14px}.nmeta{color:var(--mute);font-size:12px;margin-bottom:8px}
 .ncard ul{margin:6px 0 8px;padding-left:18px}.ncard li{margin:2px 0}
 .ncard details{margin:6px 0}.ncard summary{cursor:pointer;color:var(--ec);font-size:13px}
@@ -69,7 +85,7 @@ svg text{fill:var(--ink)}#tip{position:fixed;pointer-events:none;background:var(
 <div class="card" style="margin-top:14px"><h2>Under-contacted priority accounts</h2><table id="under"></table></div></section>
 
 <section class="tab" id="t2"><div class="card">
-<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><label>Focus account <select id="acctSel"></select></label><span class="note" style="margin:0">Drag nodes · hover for details · edge thickness = relationship score · dashed pink = inferred tie · “!” with a thick red ring or line = extreme urgency · dotted ring = high urgency (hover for why)</span></div>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><label>Focus account <select id="acctSel"></select></label><span class="note" style="margin:0">Drag nodes · hover for details · edge thickness = relationship score · dashed blue = inferred tie · “!” with a thick red ring or line = extreme urgency · dotted ring = high urgency (hover for why)</span></div>
 <div class="legend"><span><i style="background:var(--acc)"></i>Account</span><span><i style="background:var(--ip)"></i>Internal person</span><span><i style="background:var(--ec)"></i>External contact</span><span><i style="background:var(--op)"></i>Opportunity</span><span><i style="background:var(--en)"></i>Engagement</span><span><i style="background:var(--mute);height:2px;width:18px;border-radius:0;vertical-align:middle"></i>Known tie</span><span><i style="background:none;border-top:2px dashed var(--inf);height:0;width:18px;border-radius:0;vertical-align:middle"></i>Inferred tie</span></div>
 <div id="urgent" class="note" style="margin:8px 0"></div>
 <svg id="graph" width="100%" viewBox="0 0 1100 640" style="background:var(--bg);border-radius:8px"></svg></div></section>
@@ -228,7 +244,7 @@ const ex=g.append('g').selectAll('text').data(nodes.filter(d=>xt(uN[d.node_id]))
 const lb=g.append('g').selectAll('text').data(nodes.filter(d=>d.node_type=='Account'||d.node_type=='InternalPerson')).join('text').attr('font-size',10).attr('dy',-12).attr('text-anchor','middle').text(d=>d.label);
 sim.on('tick',()=>{le.attr('x1',l=>l.source.x).attr('y1',l=>l.source.y).attr('x2',l=>l.target.x).attr('y2',l=>l.target.y);ne.attr('cx',d=>d.x).attr('cy',d=>d.y);lb.attr('x',d=>d.x).attr('y',d=>d.y);ex.attr('x',d=>d.x).attr('y',d=>d.y)});
 sel.onchange=()=>{const a=sel.value;const keep=n=>!a||n.node_id==a||n.account_id==a||adj[a]?.has(n.node_id);
-ne.attr('opacity',d=>keep(d)?1:.07);lb.attr('opacity',d=>keep(d)?1:.07);le.attr('opacity',l=>!a||(keep(l.source)&&keep(l.target)&&(l.source.node_id==a||l.target.node_id==a||l.account_id==a||l.edge_type=='COLLABORATED_WITH'))?1:.04)}}
+const dim=+css('--dim-node'),dimE=+css('--dim-edge');ne.attr('opacity',d=>keep(d)?1:dim);lb.attr('opacity',d=>keep(d)?1:dim);le.attr('opacity',l=>!a||(keep(l.source)&&keep(l.target)&&(l.source.node_id==a||l.target.node_id==a||l.account_id==a||l.edge_type=='COLLABORATED_WITH'))?1:dimE)}}
 // Warm paths
 const origs=[...new Set(W.map(w=>w.origin_name))],taccts=[...new Set(W.map(w=>w.account_name))];
 $('#orig').innerHTML=origs.map(o=>`<option>${o}</option>`).join('');$('#tacct').innerHTML='<option value="">All accounts</option>'+taccts.map(o=>`<option>${o}</option>`).join('');
